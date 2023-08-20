@@ -33,7 +33,7 @@ notifyOnOrderRouter.post("/notify-on-order", async (req, res) => {
         const cookDetail = cookResponse.data;
         const waiterDetail = waiterResponse.data;
 
-        console.log(cookDetail, waiterDetail);
+        // console.log(cookDetail, waiterDetail);
 
         let token = "";
         let message = "";
