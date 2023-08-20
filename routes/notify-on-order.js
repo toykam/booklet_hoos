@@ -28,11 +28,12 @@ notifyOnOrderRouter.post("/notify-on-order", async (req, res) => {
         } else if (type == "UPDATE") {
             
         }
-        res.send({
+        return res.send({
             "message": "Al done"
         })
     } catch (error) {
-        res.status(500).send("Error: ", error)
+        console.log("Error :: ", error);
+        return res.status(500).send("Error: ", error)
     }
 })
 
