@@ -19,6 +19,7 @@ notifyOnOrderRouter.get("/notify-on-order", async (req, res) => {
 
 notifyOnOrderRouter.post("/notify-on-order", async (req, res) => {
     try {
+        console.log("SendData ::: ", req.body);
         const {
             type, record,
         } = req.body;
