@@ -7,6 +7,9 @@ const { notifyOnOrderRouter } = require('./routes/notify-on-order');
 
 const app = express();
 
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
 app.get("/", (req, res) => {
     res.send("<h1>Booklet Hooks</h1>")
 })
