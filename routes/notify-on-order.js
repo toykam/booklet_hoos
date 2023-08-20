@@ -70,14 +70,16 @@ notifyOnOrderRouter.post("/notify-on-order", async (req, res) => {
 
         if (token.length != 0) {
             sendPushNotification({
-                token, notification: {
+                token, 
+                notification: {
                     "title": "Order Update",
-                    "message": message
-                }
+                    "body": message
+                },
+                data: {}
             })
         }
         return res.send({
-            "message": "Al done"
+            "message": "All done"
         })
     } catch (error) {
         console.log("Error :: ", error);
