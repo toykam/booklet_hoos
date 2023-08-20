@@ -7,13 +7,13 @@ const notifyOnOrderRouter = Router()
 
 notifyOnOrderRouter.get("/notify-on-order", async (req, res) => {
     // const users = await supabaseAdminClient.from("users").select("*");
-    sendPushNotification({
-        token: "cdJZ3RLuSm-b3tNM2EWfOs:APA91bF-kdU1No6507S4szfhG6atitBGyhR-EVO9x-oz5zpDT2LUJmgGVC92Al1wbYT4C_6L9pPr-rmfT584ImhGOFR2kneXRFRnlpUnCMaN40ne0lUgoU11kX4v3ld6Z1JHjC80KAwb",
-        notification: {
-            "title": "Test Notification",
-            "body": "Notification Body"
-        }
-    })
+    // sendPushNotification({
+    //     token: "cdJZ3RLuSm-b3tNM2EWfOs:APA91bF-kdU1No6507S4szfhG6atitBGyhR-EVO9x-oz5zpDT2LUJmgGVC92Al1wbYT4C_6L9pPr-rmfT584ImhGOFR2kneXRFRnlpUnCMaN40ne0lUgoU11kX4v3ld6Z1JHjC80KAwb",
+    //     notification: {
+    //         "title": "Test Notification",
+    //         "body": "Notification Body"
+    //     }
+    // })
     res.send({"message": "Users ::: "})
 })
 
