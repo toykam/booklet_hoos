@@ -1,12 +1,20 @@
 const { Router } = require("express");
 const { supabaseAdminClient } = require("../database/supabase/admin.supabase.client");
+const { sendPushNotification } = require("../fcm/fcm");
 
 const notifyOnOrderRouter = Router()
 
 
 notifyOnOrderRouter.get("/notify-on-order", async (req, res) => {
-    const users = await supabaseAdminClient.from("users").select("*");
-    res.send({"message": "Users ::: ", users})
+    // const users = await supabaseAdminClient.from("users").select("*");
+    sendPushNotification({
+        token: "cdJZ3RLuSm-b3tNM2EWfOs:APA91bF-kdU1No6507S4szfhG6atitBGyhR-EVO9x-oz5zpDT2LUJmgGVC92Al1wbYT4C_6L9pPr-rmfT584ImhGOFR2kneXRFRnlpUnCMaN40ne0lUgoU11kX4v3ld6Z1JHjC80KAwb",
+        notification: {
+            "title": "Test Notification",
+            "body": "Notification Body"
+        }
+    })
+    res.send({"message": "Users ::: "})
 })
 
 notifyOnOrderRouter.post("/notify-on-order", async (req, res) => {
@@ -15,18 +23,53 @@ notifyOnOrderRouter.post("/notify-on-order", async (req, res) => {
             type, record,
         } = req.body;
         const {
-            status, cook, waiter
+            status, cook, waiter, customer_name, table_name, decline_message
         } = record
 
-        const cookDetail = await supabaseAdminClient.from("users").select("*").eq("user_id", cook);
-        const waiterDetail = await supabaseAdminClient.from("users").select("*").eq("user_id", waiter);
+        const cookResponse = await supabaseAdminClient.from("users").select("*").eq("user_id", cook).single();
+        const waiterResponse = await supabaseAdminClient.from("users").select("*").eq("user_id", waiter).single();
+
+        const cookDetail = cookResponse.data;
+        const waiterDetail = waiterResponse.data;
 
         console.log(cookDetail, waiterDetail);
 
-        if (type == "INSERT") {
+        let token = "";
+        let message = "";
 
+        if (type == "INSERT") {
+            token = cookDetail['push_notification_token'];
+            message = "You have have a new order, click to view detail.";
         } else if (type == "UPDATE") {
-            
+            if (status == "Declined") {
+                token = waiterDetail['push_notification_token'];
+                message = `The order for ${customer_name} in ${table_name} have been declined because ${decline_message}`
+            }
+            if (status == "Ready") {
+                token = waiterDetail['push_notification_token'];
+                message = `The order for ${customer_name} in ${table_name} is ready for pickup.`
+            }
+            if (status == "Accepted") {
+                token = waiterDetail['push_notification_token'];
+                message = `The order for ${customer_name} in ${table_name} have been accepted.`
+            }
+            if (status == "Preparing") {
+                token = waiterDetail['push_notification_token'];
+                message = `The order for ${customer_name} in ${table_name} preparation have started.`
+            }
+            // if (status == "Preparing") {
+            //     token = waiterDetail['push_notification_token'];
+            //     message = `The order for ${customer_name} in ${table_name} preparation have started.`
+            // }
+        }
+
+        if (token.length != 0) {
+            sendPushNotification({
+                token, notification: {
+                    "title": "Order Update",
+                    "message": message
+                }
+            })
         }
         return res.send({
             "message": "Al done"
