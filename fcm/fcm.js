@@ -7,4 +7,10 @@ const fcmApp = initializeApp({
     )
 })
 
-module.exports = {fcmApp}
+const sendPushNotification = ({token, notification, data}) => {
+    fcmApp.messaging().send({
+        token, notification, data
+    }).then((v) => console.log("Push Notification Sent")).catch((e) => console.log("Push Notification Error ::: ", e))
+}
+
+module.exports = {sendPushNotification}
