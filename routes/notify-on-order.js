@@ -46,23 +46,23 @@ notifyOnOrderRouter.post("/notify-on-order", async (req, res) => {
         } else if (type == "UPDATE") {
             if (status == "Declined") {
                 token = waiterDetail['push_notification_token'];
-                message = `The order for ${customer_name} in ${table_name} have been declined because ${decline_message}`
+                message = `The order for ${customer_name} on Table ${table_name} is declined because ${decline_message}`
             }
             if (status == "Ready") {
                 token = waiterDetail['push_notification_token'];
-                message = `The order for ${customer_name} in ${table_name} is ready for pickup.`
+                message = `The order for ${customer_name} on Table ${table_name} is ready for pickup.`
             }
             if (status == "Accepted") {
                 token = waiterDetail['push_notification_token'];
-                message = `The order for ${customer_name} in ${table_name} have been accepted.`
+                message = `The order for ${customer_name} on Table ${table_name} is accepted.`
             }
             if (status == "Preparing") {
                 token = waiterDetail['push_notification_token'];
-                message = `The order for ${customer_name} in ${table_name} preparation have started.`
+                message = `The order for ${customer_name} on Table ${table_name} preparation started.`
             }
             if (status == "Cancelled") {
                 token = cookDetail['push_notification_token'];
-                message = `The order for ${customer_name} in ${table_name} preparation have been cancelled.`
+                message = `The order for ${customer_name} on Table ${table_name} is cancelled.`
             }
             // if (status == "Preparing") {
             //     token = waiterDetail['push_notification_token'];
