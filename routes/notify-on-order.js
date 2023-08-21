@@ -24,7 +24,7 @@ notifyOnOrderRouter.post("/notify-on-order", async (req, res) => {
             type, record,
         } = req.body;
         const {
-            status, cook, waiter, customer_name, table_name, decline_message
+            status, cook, waiter, customer_name, table_name, decline_message, id
         } = record
 
         const cookResponse = await supabaseAdminClient.from("users").select("*").eq("user_id", cook).single();
@@ -75,7 +75,9 @@ notifyOnOrderRouter.post("/notify-on-order", async (req, res) => {
                     "title": "Order Update",
                     "body": message
                 },
-                data: {}
+                data: {
+                    "order_id": id
+                }
             })
         }
         return res.send({
