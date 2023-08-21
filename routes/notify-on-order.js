@@ -75,9 +75,9 @@ notifyOnOrderRouter.post("/notify-on-order", async (req, res) => {
                     "title": "Order Update",
                     "body": message
                 },
-                data: {
+                data: JSON.stringify({
                     "order_id": id
-                }
+                })
             })
         }
         return res.send({
