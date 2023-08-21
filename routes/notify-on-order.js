@@ -62,7 +62,7 @@ notifyOnOrderRouter.post("/notify-on-order", async (req, res) => {
             }
             if (status == "Cancelled") {
                 token = cookDetail['push_notification_token'];
-                message = `The order for ${customer_name} in ${table_name} preparation have cancelled.`
+                message = `The order for ${customer_name} in ${table_name} preparation have been cancelled.`
             }
             // if (status == "Preparing") {
             //     token = waiterDetail['push_notification_token'];
