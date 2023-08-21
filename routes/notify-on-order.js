@@ -27,7 +27,7 @@ notifyOnOrderRouter.post("/notify-on-order", async (req, res) => {
             status, cook, waiter, customer_name, table_name, decline_message, id
         } = record
 
-        console.log("OrderId ::: ", id)
+        // console.log("OrderId ::: ", id)
 
         const cookResponse = await supabaseAdminClient.from("users").select("*").eq("user_id", cook).single();
         const waiterResponse = await supabaseAdminClient.from("users").select("*").eq("user_id", waiter).single();

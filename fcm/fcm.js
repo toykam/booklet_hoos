@@ -8,7 +8,7 @@ const fcmApp = admin.initializeApp({
 })
 
 const sendPushNotification = ({token, notification, data}) => {
-    console.log(token, notification, data);
+    // console.log(token, notification, data);
     fcmApp.messaging().send({
         token, notification, data
     }).then((v) => console.log("Push Notification Sent")).catch((e) => console.log("Push Notification Error ::: ", e))
